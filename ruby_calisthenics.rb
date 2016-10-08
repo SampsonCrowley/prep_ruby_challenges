@@ -52,49 +52,40 @@ def overlap(rectangle_one, rectangle_two)
   rectangle = [[[0,0],[0,0]],[[0,0],[0,0]]]
   box_limits = {
     'rectangle_one' => {
-      top: 0, 
-      right: 0, 
-      bottom: 0, 
-      left: 0
+      top: rectangle_one[1][1], 
+      right: rectangle_one[1][0], 
+      bottom: rectangle_one[0][1], 
+      left: rectangle_one[0][0]
     },
     'rectangle_two' => {
-      top: 0, 
-      right: 0, 
-      bottom: 0, 
-      left: 0
+      top: rectangle_two[1][1], 
+      right: rectangle_two[1][0], 
+      bottom: rectangle_two[0][1], 
+      left: rectangle_two[0][0]
     }
   }
 
-    if rectangle_one[0][0] < rectangle_one[1][0]
-      box_limits['rectangle_one'][:left] = rectangle_one[0][0]
-      box_limits['rectangle_one'][:right] = rectangle_one[1][0]
-    else
-      box_limits['rectangle_one'][:left] = rectangle_one[1][0]
-      box_limits['rectangle_one'][:right] = rectangle_one[0][0]
-    end
-    if rectangle_one[0][1] < rectangle_one[1][1]
-      box_limits['rectangle_one'][:bottom] = rectangle_one[0][1]
-      box_limits['rectangle_one'][:top] = rectangle_one[1][1]
-    else
-      box_limits['rectangle_one'][:bottom] = rectangle_one[1][1]
-      box_limits['rectangle_one'][:top] = rectangle_one[0][1]
-    end
-    if rectangle_two[0][0] < rectangle_two[1][0]
-      box_limits['rectangle_two'][:left] = rectangle_two[0][0]
-      box_limits['rectangle_two'][:right] = rectangle_two[1][0]
-    else
-      box_limits['rectangle_two'][:left] = rectangle_two[1][0]
-      box_limits['rectangle_two'][:right] = rectangle_two[0][0]
-    end
-    if rectangle_two[0][1] < rectangle_two[1][1]
-      box_limits['rectangle_two'][:bottom] = rectangle_two[0][1]
-      box_limits['rectangle_two'][:top] = rectangle_two[1][1]
-    else
-      box_limits['rectangle_two'][:bottom] = rectangle_two[1][1]
-      box_limits['rectangle_two'][:top] = rectangle_two[0][1]
-    end
+  if rectangle_one[0][0] > rectangle_one[1][0]
+    box_limits['rectangle_one'][:left] = rectangle_one[1][0]
+    box_limits['rectangle_one'][:right] = rectangle_one[0][0]
+  end
+  if rectangle_one[0][1] > rectangle_one[1][1]
+    box_limits['rectangle_one'][:bottom] = rectangle_one[1][1]
+    box_limits['rectangle_one'][:top] = rectangle_one[0][1]
+  end
+  if rectangle_two[0][0] > rectangle_two[1][0]
+    box_limits['rectangle_two'][:left] = rectangle_two[1][0]
+    box_limits['rectangle_two'][:right] = rectangle_two[0][0]
+  end
+  if rectangle_two[0][1] > rectangle_two[1][1]
+    box_limits['rectangle_two'][:bottom] = rectangle_two[1][1]
+    box_limits['rectangle_two'][:top] = rectangle_two[0][1]
+  end
 
-  if (box_limits["rectangle_one"][:top] <= box_limits["rectangle_two"][:bottom] || box_limits["rectangle_one"][:bottom] >= box_limits["rectangle_two"][:top] || box_limits["rectangle_one"][:right] <= box_limits["rectangle_two"][:left] || box_limits["rectangle_one"][:left] >= box_limits["rectangle_two"][:right])
+  if (box_limits["rectangle_one"][:top] <= box_limits["rectangle_two"][:bottom] || 
+    box_limits["rectangle_one"][:bottom] >= box_limits["rectangle_two"][:top] || 
+    box_limits["rectangle_one"][:right] <= box_limits["rectangle_two"][:left] || 
+    box_limits["rectangle_one"][:left] >= box_limits["rectangle_two"][:right])
     return false
   else
    return true
